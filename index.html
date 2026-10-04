@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PermitNow | Municipal Building-Plan Approval System</title>
+  <meta name="description" content="Official Municipal Corporation portal for streamlined single-window building plan approvals, scrutiny tracking, and sanction letters.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Accessible Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Top Government Ribbon -->
+  <div class="gov-topbar" role="region" aria-label="Official Government Header">
+    <div class="container topbar-content">
+      <div class="gov-identity">
+        <span class="gov-flag-stripe" aria-hidden="true"></span>
+        <span class="gov-seal-text">MUNICIPAL CORPORATION &bull; URBAN DEVELOPMENT &amp; HOUSING DEPARTMENT</span>
+        <span class="gov-demo-badge" title="This is a fully functional client-side prototype">DEMO SYSTEM</span>
+      </div>
+      <div class="gov-accessibility-tools">
+        <div class="accessibility-group" aria-label="Text size controls">
+          <span class="tool-label">Text Size:</span>
+          <button type="button" class="btn-text-size" id="btn-font-decrease" aria-label="Decrease text size">A-</button>
+          <button type="button" class="btn-text-size active" id="btn-font-normal" aria-label="Default text size">A</button>
+          <button type="button" class="btn-text-size" id="btn-font-increase" aria-label="Increase text size">A+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navigation Header -->
+  <header class="main-header" role="banner">
+    <div class="container header-container">
+      <div class="brand-block">
+        <a href="#" class="brand-link" id="nav-brand-link" aria-label="PermitNow Home">
+          <div class="brand-crest" aria-hidden="true">
+            <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="6" y="6" width="88" height="88" rx="8" stroke="#133d6d" stroke-width="6" fill="#f8fafc"/>
+              <path d="M50 16 L80 34 L80 78 L20 78 L20 34 Z" stroke="#133d6d" stroke-width="5" fill="#e2e8f0"/>
+              <path d="M50 16 L50 78" stroke="#133d6d" stroke-width="3" stroke-dasharray="4 3"/>
+              <rect x="30" y="44" width="12" height="14" fill="#133d6d"/>
+              <rect x="58" y="44" width="12" height="14" fill="#133d6d"/>
+              <path d="M44 78 L44 60 L56 60 L56 78 Z" fill="#b91c1c"/>
+              <circle cx="50" cy="28" r="4" fill="#133d6d"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <span class="brand-title">PermitNow</span>
+            <span class="brand-subtitle">Single-Window Building Plan Approval System</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button type="button" class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primary-nav">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+
+      <!-- Primary Navigation -->
+      <nav class="primary-nav" id="primary-nav" role="navigation" aria-label="Main Navigation">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="#" class="nav-link active" data-view="landing" id="nav-home"><span class="nav-text-line">Home</span></a></li>
+          <li class="nav-item"><a href="#" class="nav-link" data-view="applicant-dashboard" id="nav-applicant"><span class="nav-text-line">Citizen</span><span class="nav-text-line">Portal</span></a></li>
+          <li class="nav-item"><a href="#" class="nav-link" data-view="officer-dashboard" id="nav-officer"><span class="nav-text-line">Officer</span><span class="nav-text-line">Scrutiny</span></a></li>
+          <li class="nav-item"><a href="#" class="nav-link" data-view="admin-dashboard" id="nav-admin"><span class="nav-text-line">Administration</span></a></li>
+          <li class="nav-item"><a href="#quick-track-section" class="nav-link" id="nav-track"><span class="nav-text-line">Track</span><span class="nav-text-line">Application</span></a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <!-- Notification Bell -->
+          <div class="notification-wrapper">
+            <button type="button" class="btn-notification" id="btn-notification-bell" aria-label="View notifications">
+              <span class="bell-icon" aria-hidden="true">&#128276;</span>
+              <span class="notification-badge" id="notification-count">2</span>
+            </button>
+            <div class="notification-dropdown hidden" id="notification-dropdown" role="dialog" aria-label="System Notifications">
+              <div class="notification-header">
+                <h3>Notifications</h3>
+                <button type="button" class="btn-text-action" id="btn-mark-all-read">Mark all as read</button>
+              </div>
+              <ul class="notification-list" id="notification-list">
+                <!-- Injected via script.js -->
+              </ul>
+            </div>
+          </div>
+
+          <!-- Active Role Switcher Pill -->
+          <div class="role-selector-pill">
+            <span class="role-label" id="current-role-badge">Role: Applicant</span>
+            <button type="button" class="btn-role-switch" id="btn-role-modal-open" aria-label="Switch User Role or Sign In">
+              Switch Role
+            </button>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Live Notice Ticker -->
+  <div class="announcement-banner" role="complementary" aria-label="Municipal Notice">
+    <div class="container banner-inner">
+      <span class="banner-tag">OFFICIAL MANDATE</span>
+      <p class="banner-text">Under Municipal Byelaws 2024: <strong>90% of all building plan applications are strictly processed within 30 statutory days.</strong> No physical submission required.</p>
+    </div>
+  </div>
+
+  <!-- Global Main Content Container -->
+  <main id="main-content" class="main-body" role="main">
+
+    <!-- ========================================================================= -->
+    <!-- VIEW 1: LANDING PAGE                                                      -->
+    <!-- ========================================================================= -->
+    <section id="view-landing" class="portal-view active" aria-labelledby="landing-hero-heading">
+      <!-- Hero Section -->
+      <div class="landing-hero">
+        <div class="container hero-layout">
+          <div class="hero-content">
+            <div class="hero-badge">Single-Window Municipal Clearance</div>
+            <h1 id="landing-hero-heading" class="hero-title">Transparent &amp; Fast-Track Building Plan Approvals</h1>
+            <p class="hero-description">
+              Submit architectural drawings, track multi-departmental scrutinies in real-time, pay municipal fees, and receive digitally signed sanction orders without physical visits to the municipal offices.
+            </p>
+            <div class="hero-cta-group">
+              <button type="button" class="btn btn-primary btn-large" id="btn-hero-apply">
+                <span class="btn-icon" aria-hidden="true">&#9998;</span> Apply for Building Plan Approval
+              </button>
+              <button type="button" class="btn btn-secondary btn-large" id="btn-hero-login">
+                <span class="btn-icon" aria-hidden="true">&#128273;</span> Login / Switch Role
+              </button>
+            </div>
+
+            <!-- Citizen Charter / SLA Metric Card -->
+            <div class="sla-stat-strip">
+              <div class="sla-card">
+                <div class="sla-number" id="landing-sla-rate">89.4%</div>
+                <div class="sla-info">
+                  <strong>30-Day Approval SLA</strong>
+                  <span>Target: 90% sanctioned within 30 working days</span>
+                </div>
+              </div>
+              <div class="sla-card">
+                <div class="sla-number">6</div>
+                <div class="sla-info">
+                  <strong>Integrated Departments</strong>
+                  <span>Town Planning, Fire, Structural, Water, Env &amp; Traffic</span>
+                </div>
+              </div>
+              <div class="sla-card">
+                <div class="sla-number">100%</div>
+                <div class="sla-info">
+                  <strong>Digital &amp; Paperless</strong>
+                  <span>Tamper-proof digitally signed sanction orders</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Track Application Card -->
+          <div class="hero-track-card" id="quick-track-section">
+            <div class="card-inner">
+              <h2 class="card-title">Track Application Status</h2>
+              <p class="card-subtitle">Enter your 11-digit application reference number to view scrutiny status</p>
+              <form id="form-quick-track" class="track-form" novalidate>
+                <div class="form-group">
+                  <label for="input-track-id">Application Reference ID</label>
+                  <div class="input-with-button">
+                    <input type="text" id="input-track-id" class="form-control" placeholder="e.g. PN-2026-0089" required autocomplete="off" aria-describedby="track-hint">
+                    <button type="submit" class="btn btn-primary" id="btn-track-submit">Track</button>
+                  </div>
+                  <span id="track-hint" class="input-hint">Demo examples: <strong>PN-2026-0041</strong> (Approved), <strong>PN-2026-0089</strong> (Deficiency), <strong>PN-2026-0104</strong> (Scrutiny)</span>
+                </div>
+                <div id="quick-track-result" class="track-result-box hidden" role="region" aria-live="polite"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scrutiny Workflow Breakdown Section -->
+      <section class="section-workflow" aria-labelledby="workflow-heading">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-category">Streamlined Workflow</span>
+            <h2 id="workflow-heading" class="section-title">Single-Window Scrutiny Across Six Municipal Departments</h2>
+            <p class="section-lead">Applications undergo parallel review by all required statutory authorities without manual paper routing.</p>
+          </div>
+
+          <div class="departments-grid">
+            <div class="dept-card">
+              <div class="dept-icon" aria-hidden="true">&#127963;</div>
+              <h3 class="dept-title">1. Town Planning &amp; Zoning</h3>
+              <p class="dept-desc">Master plan compliance, FAR/FSI calculations, setbacks, ground coverage, and land-use conformity.</p>
+            </div>
+            <div class="dept-card">
+              <div class="dept-icon" aria-hidden="true">&#128293;</div>
+              <h3 class="dept-title">2. Fire &amp; Life Safety</h3>
+              <p class="dept-desc">Staircase width, fire escape clearances, hydrant access, water tank capacities, and National Building Code adherence.</p>
+            </div>
+            <div class="dept-card">
+              <div class="dept-icon" aria-hidden="true">&#127959;</div>
+              <h3 class="dept-title">3. Structural Safety</h3>
+              <p class="dept-desc">Soil test verification, seismic zone engineering design, structural engineer certifications, and foundation checks.</p>
+            </div>
+            <div class="dept-card">
+              <div class="dept-icon" aria-hidden="true">&#127793;</div>
+              <h3 class="dept-title">4. Environmental &amp; Sanitation</h3>
+              <p class="dept-desc">Rainwater harvesting design, solid waste segregation chambers, and sewage treatment plant (STP) parameters.</p>
+            </div>
+            <div class="dept-card">
+              <div class="dept-icon" aria-hidden="true">&#128167;</div>
+              <h3 class="dept-title">5. Water Supply &amp; Sewerage</h3>
+              <p class="dept-desc">Municipal main line connections, storm water drainage plan, pipe sizing, and hydraulic head calculations.</p>
+            </div>
+            <div class="dept-card">
+              <div class="dept-icon" aria-hidden="true">&#128658;</div>
+              <h3 class="dept-title">6. Traffic &amp; Police Clearance</h3>
+              <p class="dept-desc">Right-of-way road widths, vehicular ingress/egress ramps, baseline parking ratios, and sight distance safety.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Key Service Highlights -->
+      <section class="section-highlights" aria-labelledby="highlights-heading">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-category">Citizen Services</span>
+            <h2 id="highlights-heading" class="section-title">Why Use the PermitNow Municipal Portal?</h2>
+          </div>
+
+          <div class="highlights-grid">
+            <div class="highlight-item">
+              <div class="highlight-num">01</div>
+              <div class="highlight-body">
+                <h3>Automated Rule Verification</h3>
+                <p>Built-in mathematical validation verifies maximum permissible FAR, ground coverage, and open space according to current building byelaws before submission.</p>
+              </div>
+            </div>
+            <div class="highlight-item">
+              <div class="highlight-num">02</div>
+              <div class="highlight-body">
+                <h3>Clear Deficiency Tracking</h3>
+                <p>Specific line-item objections raised by officers can be directly addressed with online resubmission. No ambiguous offline correspondence.</p>
+              </div>
+            </div>
+            <div class="highlight-item">
+              <div class="highlight-num">03</div>
+              <div class="highlight-body">
+                <h3>Integrated Fee Calculation</h3>
+                <p>Transparent municipal fee breakup (scrutiny fee, development cess, infrastructure charges) with instant digital receipt generation.</p>
+              </div>
+            </div>
+            <div class="highlight-item">
+              <div class="highlight-num">04</div>
+              <div class="highlight-body">
+                <h3>Verifiable Sanction Orders</h3>
+                <p>Approved plans receive an official municipal Building Sanction Letter featuring a scannable verification QR code and cryptographic permit ID.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Help, Citizen Charter, and Contact Section -->
+      <section class="section-support" id="help-section" aria-labelledby="support-heading">
+        <div class="container support-layout">
+          <div class="support-faq">
+            <h2 id="support-heading">Frequently Asked Questions</h2>
+            <div class="faq-accordion">
+              <details class="faq-item" open>
+                <summary>What is the statutory timeframe for building plan approvals?</summary>
+                <p>Under the Municipal Citizen's Charter, all standard residential and commercial building plans must be scrutinized and disposed of within <strong>30 working days</strong> from the date of complete document submission and fee verification.</p>
+              </details>
+              <details class="faq-item">
+                <summary>Who can submit a building plan application?</summary>
+                <p>Applications must be submitted by the legal property owner or through a Council of Architecture (CoA) registered architect or licensed municipal building surveyor.</p>
+              </details>
+              <details class="faq-item">
+                <summary>What happens if a department raises a deficiency?</summary>
+                <p>The applicant receives an SMS and portal alert. The statutory 30-day clock pauses. The applicant has 15 days to resubmit the corrected drawing or required document directly via the application details page.</p>
+              </details>
+            </div>
+          </div>
+
+          <div class="support-contact-box">
+            <h3>Municipal Helpdesk &amp; Citizen Support</h3>
+            <p>For technical guidance, status inquiries, or fee verification issues:</p>
+            <ul class="contact-details">
+              <li><strong>Toll-Free Helpline:</strong> 1800-233-5678 (Mon - Sat, 9:00 AM - 6:00 PM)</li>
+              <li><strong>Email:</strong> helpdesk.buildingpermits@municipal.gov.demo</li>
+              <li><strong>Head Office:</strong> Municipal Town Planning Cell, Room 204, Civic Center, Sector 5</li>
+            </ul>
+            <div class="demo-reset-wrapper">
+              <button type="button" class="btn btn-outline btn-small" id="btn-reset-demo-data">
+                <span aria-hidden="true">&#8635;</span> Reset System Demo Data
+              </button>
+              <span class="reset-hint">Restores initial mock applications and clearances.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- VIEW 2: LOGIN & ROLE SWITCHER (MODAL / PAGE)                              -->
+    <!-- ========================================================================= -->
+    <section id="view-login" class="portal-view hidden" aria-labelledby="login-heading">
+      <div class="container login-container">
+        <div class="login-card">
+          <div class="login-header">
+            <div class="gov-badge-sm">OFFICIAL PORTAL ACCESS</div>
+            <h1 id="login-heading">Select User Role &amp; Enter Portal</h1>
+            <p>Select a simulated municipal stakeholder persona to test PermitNow functionality.</p>
+          </div>
+
+          <div class="role-selection-grid">
+            <!-- Persona 1: Applicant / Architect -->
+            <div class="role-card" id="persona-applicant">
+              <div class="role-icon" aria-hidden="true">&#128100;</div>
+              <div class="role-content">
+                <span class="role-type">Citizen / Professional</span>
+                <h3>Applicant / Architect</h3>
+                <p>Submit new building plan applications, view scrutiny timelines, respond to deficiencies, pay fees, and download approval certificates.</p>
+                <div class="persona-demo-user">Active: <strong>Rajesh Sharma (CoA CA/2018/98421)</strong></div>
+                <button type="button" class="btn btn-primary btn-block btn-select-persona" data-role="applicant">
+                  Enter as Applicant
+                </button>
+              </div>
+            </div>
+
+            <!-- Persona 2: Department Officer -->
+            <div class="role-card" id="persona-officer">
+              <div class="role-icon" aria-hidden="true">&#127891;</div>
+              <div class="role-content">
+                <span class="role-type">Municipal Authority</span>
+                <h3>Department Scrutiny Officer</h3>
+                <p>Examine architectural plans, enforce municipal byelaws, issue deficiency checklists, record site inspection remarks, and grant clearances.</p>
+                <div class="form-group dept-select-inline">
+                  <label for="login-dept-select">Assigned Department:</label>
+                  <select id="login-dept-select" class="form-control">
+                    <option value="town_planning">Town Planning &amp; Zoning</option>
+                    <option value="fire_safety">Fire &amp; Life Safety</option>
+                    <option value="structural">Structural Engineering</option>
+                    <option value="environmental">Environmental &amp; Sanitation</option>
+                    <option value="water_sewerage">Water Supply &amp; Drainage</option>
+                    <option value="traffic">Traffic &amp; Police Clearance</option>
+                  </select>
+                </div>
+                <button type="button" class="btn btn-primary btn-block btn-select-persona" data-role="officer">
+                  Enter as Department Officer
+                </button>
+              </div>
+            </div>
+
+            <!-- Persona 3: Administrator -->
+            <div class="role-card" id="persona-admin">
+              <div class="role-icon" aria-hidden="true">&#128200;</div>
+              <div class="role-content">
+                <span class="role-type">Executive Oversight</span>
+                <h3>Municipal Administrator</h3>
+                <p>Monitor municipality-wide 30-day SLA compliance, view department turnaround times, inspect pending escalations, and manage system parameters.</p>
+                <div class="persona-demo-user">Active: <strong>Commissioner / Chief Town Planner</strong></div>
+                <button type="button" class="btn btn-primary btn-block btn-select-persona" data-role="admin">
+                  Enter as Administrator
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="login-footer">
+            <p>Note: This is a front-end government workflow simulation. No passwords or server credentials are required.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- VIEW 3: APPLICANT DASHBOARD                                               -->
+    <!-- ========================================================================= -->
+    <section id="view-applicant-dashboard" class="portal-view hidden" aria-labelledby="applicant-dash-heading">
+      <div class="container">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+          <div>
+            <div class="breadcrumb" aria-label="Breadcrumb">
+              <a href="#" class="breadcrumb-link" data-view="landing">Home</a> &gt; <span>Citizen Portal</span>
+            </div>
+            <h1 id="applicant-dash-heading" class="dashboard-title">Applicant &amp; Architect Dashboard</h1>
+            <p class="dashboard-subtitle">Manage building plan applications, track multi-department scrutinies, and download sanction orders.</p>
+          </div>
+          <div class="dashboard-header-actions">
+            <button type="button" class="btn btn-primary btn-large" id="btn-start-new-application">
+              <span class="btn-icon" aria-hidden="true">&#65291;</span> Start New Building Plan Application
+            </button>
+          </div>
+        </div>
+
+        <!-- Summary Metric Cards -->
+        <div class="stats-row" role="region" aria-label="Application Status Summary">
+          <div class="stat-card" data-filter="all" tabindex="0" role="button" aria-pressed="true">
+            <div class="stat-label">Total Applications</div>
+            <div class="stat-value" id="stat-applicant-total">0</div>
+            <div class="stat-desc">All submitted &amp; drafts</div>
+          </div>
+          <div class="stat-card stat-draft" data-filter="Draft" tabindex="0" role="button">
+            <div class="stat-label">Draft</div>
+            <div class="stat-value" id="stat-applicant-draft">0</div>
+            <div class="stat-desc">Incomplete drafts</div>
+          </div>
+          <div class="stat-card stat-submitted" data-filter="Submitted" tabindex="0" role="button">
+            <div class="stat-label">Submitted</div>
+            <div class="stat-value" id="stat-applicant-submitted">0</div>
+            <div class="stat-desc">Awaiting initial queue</div>
+          </div>
+          <div class="stat-card stat-scrutiny" data-filter="Under Scrutiny" tabindex="0" role="button">
+            <div class="stat-label">Under Scrutiny</div>
+            <div class="stat-value" id="stat-applicant-scrutiny">0</div>
+            <div class="stat-desc">Active reviews by depts</div>
+          </div>
+          <div class="stat-card stat-deficiency" data-filter="Deficiency Raised" tabindex="0" role="button">
+            <div class="stat-label">Deficiency Raised</div>
+            <div class="stat-value" id="stat-applicant-deficiency">0</div>
+            <div class="stat-desc">Action needed by citizen</div>
+          </div>
+          <div class="stat-card stat-approved" data-filter="Approved" tabindex="0" role="button">
+            <div class="stat-label">Approved</div>
+            <div class="stat-value" id="stat-applicant-approved">0</div>
+            <div class="stat-desc">Permit order ready</div>
+          </div>
+          <div class="stat-card stat-rejected" data-filter="Rejected" tabindex="0" role="button">
+            <div class="stat-label">Rejected</div>
+            <div class="stat-value" id="stat-applicant-rejected">0</div>
+            <div class="stat-desc">Byelaw non-compliant</div>
+          </div>
+        </div>
+
+        <!-- Applications Table & Search Filter -->
+        <div class="panel-box">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <h2 class="panel-title">My Building Plan Applications</h2>
+              <span class="active-filter-badge" id="applicant-active-filter-text">Showing: All Applications</span>
+            </div>
+            <div class="table-controls">
+              <div class="search-input-wrap">
+                <input type="text" id="applicant-search-input" class="form-control form-control-sm" placeholder="Search by ID, Plot, or Ward...">
+              </div>
+              <select id="applicant-status-select" class="form-control form-control-sm" aria-label="Filter applications by status">
+                <option value="all">All Statuses</option>
+                <option value="Draft">Draft</option>
+                <option value="Submitted">Submitted</option>
+                <option value="Under Scrutiny">Under Scrutiny</option>
+                <option value="Deficiency Raised">Deficiency Raised</option>
+                <option value="Approved">Approved</option>
+                <option value="Rejected">Rejected</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Responsive Table -->
+          <div class="table-responsive">
+            <table class="gov-table" id="applicant-applications-table">
+              <thead>
+                <tr>
+                  <th scope="col">Application ID</th>
+                  <th scope="col">Proposed Project</th>
+                  <th scope="col">Ward / Plot</th>
+                  <th scope="col">Submitted On</th>
+                  <th scope="col">Statutory Status</th>
+                  <th scope="col">30-Day Age</th>
+                  <th scope="col" class="text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="applicant-table-body">
+                <!-- Dynamically populated by script.js -->
+              </tbody>
+            </table>
+          </div>
+
+          <div id="applicant-empty-state" class="empty-state hidden">
+            <div class="empty-icon" aria-hidden="true">&#128196;</div>
+            <h3>No Applications Found</h3>
+            <p>No building plan applications match the selected filter criteria.</p>
+            <button type="button" class="btn btn-secondary btn-small" id="btn-clear-applicant-filter">Clear Filters</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- VIEW 4: MULTI-STEP BUILDING PLAN APPLICATION FORM                         -->
+    <!-- ========================================================================= -->
+    <section id="view-application-form" class="portal-view hidden" aria-labelledby="form-heading">
+      <div class="container form-wizard-container">
+        <!-- Wizard Header -->
+        <div class="wizard-header">
+          <div class="breadcrumb">
+            <a href="#" class="breadcrumb-link" data-view="applicant-dashboard">Citizen Portal</a> &gt; <span>New Building Plan Application</span>
+          </div>
+          <h1 id="form-heading" class="wizard-title">Application for Municipal Building Plan Approval</h1>
+          <p class="wizard-subtitle">Submit details as per Municipal Building Byelaws 2024. All fields marked with <span class="req-star">*</span> are mandatory.</p>
+        </div>
+
+        <!-- Stepper Indicator -->
+        <div class="stepper-bar" role="tablist" aria-label="Application form steps">
+          <button type="button" class="step-node active" id="step-node-1" role="tab" aria-selected="true" data-step="1">
+            <span class="step-num">1</span>
+            <span class="step-name">Applicant</span>
+          </button>
+          <div class="step-line" aria-hidden="true"></div>
+          <button type="button" class="step-node" id="step-node-2" role="tab" aria-selected="false" data-step="2">
+            <span class="step-num">2</span>
+            <span class="step-name">Property &amp; Plot</span>
+          </button>
+          <div class="step-line" aria-hidden="true"></div>
+          <button type="button" class="step-node" id="step-node-3" role="tab" aria-selected="false" data-step="3">
+            <span class="step-num">3</span>
+            <span class="step-name">Built-up Specs</span>
+          </button>
+          <div class="step-line" aria-hidden="true"></div>
+          <button type="button" class="step-node" id="step-node-4" role="tab" aria-selected="false" data-step="4">
+            <span class="step-num">4</span>
+            <span class="step-name">Architect / Eng.</span>
+          </button>
+          <div class="step-line" aria-hidden="true"></div>
+          <button type="button" class="step-node" id="step-node-5" role="tab" aria-selected="false" data-step="5">
+            <span class="step-num">5</span>
+            <span class="step-name">Documents</span>
+          </button>
+          <div class="step-line" aria-hidden="true"></div>
+          <button type="button" class="step-node" id="step-node-6" role="tab" aria-selected="false" data-step="6">
+            <span class="step-num">6</span>
+            <span class="step-name">Review &amp; Submit</span>
+          </button>
+        </div>
+
+        <!-- Form Body -->
+        <form id="building-permit-form" class="wizard-form-body" novalidate>
+          <input type="hidden" id="form-editing-id" value="">
+
+          <!-- STEP 1: Applicant & Ownership Details -->
+          <fieldset class="wizard-step-panel active" id="wizard-step-1" aria-labelledby="step-node-1">
+            <legend class="step-panel-title">Step 1: Applicant &amp; Owner Particulars</legend>
+            <p class="step-panel-desc">Provide primary applicant identity and ownership credentials.</p>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="app-full-name">Full Name of Applicant / Landowner <span class="req-star">*</span></label>
+                <input type="text" id="app-full-name" class="form-control" placeholder="e.g. Vikramaditya Singhania" required minlength="3">
+                <span class="error-msg">Please enter a valid full name (minimum 3 letters).</span>
+              </div>
+              <div class="form-group">
+                <label for="app-ownership-type">Ownership Classification <span class="req-star">*</span></label>
+                <select id="app-ownership-type" class="form-control" required>
+                  <option value="">Select ownership status...</option>
+                  <option value="Individual Freehold">Individual Freehold</option>
+                  <option value="Joint Owners">Joint Owners</option>
+                  <option value="Registered Society / Trust">Registered Society / Trust</option>
+                  <option value="Corporate / Partnership Firm">Corporate / Partnership Firm</option>
+                  <option value="Government / PSU">Government / PSU</option>
+                </select>
+                <span class="error-msg">Please select an ownership classification.</span>
+              </div>
+            </div>
+
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label for="app-email">Official Email Address <span class="req-star">*</span></label>
+                <input type="email" id="app-email" class="form-control" placeholder="citizen@example.com" required>
+                <span class="error-msg">Please enter a valid email address.</span>
+              </div>
+              <div class="form-group">
+                <label for="app-mobile">Mobile Number (SMS Alerts) <span class="req-star">*</span></label>
+                <input type="tel" id="app-mobile" class="form-control" placeholder="10-digit mobile" pattern="[0-9]{10}" required>
+                <span class="error-msg">Please enter a 10-digit mobile number.</span>
+              </div>
+              <div class="form-group">
+                <label for="app-gov-id">Aadhaar / PAN / Corporate ID <span class="req-star">*</span></label>
+                <input type="text" id="app-gov-id" class="form-control" placeholder="e.g. ABCD1234E" required minlength="8">
+                <span class="error-msg">Please enter a valid National Identity / Tax ID.</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="app-postal-address">Permanent Postal / Registered Address <span class="req-star">*</span></label>
+              <textarea id="app-postal-address" class="form-control" rows="2" placeholder="Full postal address with pincode..." required minlength="10"></textarea>
+              <span class="error-msg">Please enter complete postal address (at least 10 characters).</span>
+            </div>
+          </fieldset>
+
+          <!-- STEP 2: Property & Plot Details -->
+          <fieldset class="wizard-step-panel hidden" id="wizard-step-2" aria-labelledby="step-node-2">
+            <legend class="step-panel-title">Step 2: Property &amp; Site Particulars</legend>
+            <p class="step-panel-desc">Geographic identification and municipal survey coordinates.</p>
+
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label for="prop-ward">Municipal Ward &amp; Zone <span class="req-star">*</span></label>
+                <select id="prop-ward" class="form-control" required>
+                  <option value="">Select Municipal Ward...</option>
+                  <option value="Ward 03 - North Zone">Ward 03 - North Zone</option>
+                  <option value="Ward 07 - Central Zone">Ward 07 - Central Zone</option>
+                  <option value="Ward 12 - South Zone">Ward 12 - South Zone</option>
+                  <option value="Ward 15 - West Zone">Ward 15 - West Zone</option>
+                  <option value="Ward 21 - East Zone">Ward 21 - East Zone</option>
+                  <option value="Ward 28 - Industrial Belt">Ward 28 - Industrial Belt</option>
+                </select>
+                <span class="error-msg">Please select an assigned ward.</span>
+              </div>
+              <div class="form-group">
+                <label for="prop-plot-no">Plot / Door / Site Number <span class="req-star">*</span></label>
+                <input type="text" id="prop-plot-no" class="form-control" placeholder="e.g. Plot No. 44-B, Sector 8" required>
+                <span class="error-msg">Please specify the plot or site number.</span>
+              </div>
+              <div class="form-group">
+                <label for="prop-survey-no">Revenue Survey / CTS / Khasra No <span class="req-star">*</span></label>
+                <input type="text" id="prop-survey-no" class="form-control" placeholder="e.g. Sy. No. 128/2A" required>
+                <span class="error-msg">Please specify revenue survey or CTS number.</span>
+              </div>
+            </div>
+
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label for="prop-plot-area">Total Plot Area (in sq. meters) <span class="req-star">*</span></label>
+                <input type="number" id="prop-plot-area" class="form-control" placeholder="e.g. 450" min="50" max="100000" step="any" required>
+                <span class="error-msg">Please enter a valid plot area between 50 and 100,000 sq.m.</span>
+              </div>
+              <div class="form-group">
+                <label for="prop-road-width">Abutting Road Width (meters) <span class="req-star">*</span></label>
+                <input type="number" id="prop-road-width" class="form-control" placeholder="e.g. 12" min="3" max="60" step="0.1" required>
+                <span class="input-hint">Minimum 9.0m required for commercial / multi-storey.</span>
+                <span class="error-msg">Please enter valid road width (min 3m).</span>
+              </div>
+              <div class="form-group">
+                <label for="prop-zoning">Master Plan Land-Use Zone <span class="req-star">*</span></label>
+                <select id="prop-zoning" class="form-control" required>
+                  <option value="">Select Master Plan Zone...</option>
+                  <option value="Residential R-1 (Low Density)">Residential R-1 (Low Density)</option>
+                  <option value="Residential R-2 (High Density)">Residential R-2 (High Density)</option>
+                  <option value="Commercial C-1 (Local Retail)">Commercial C-1 (Local Retail)</option>
+                  <option value="Commercial C-2 (Central Business)">Commercial C-2 (Central Business)</option>
+                  <option value="Industrial Light (I-1)">Industrial Light (I-1)</option>
+                  <option value="Public / Semi-Public">Public / Semi-Public</option>
+                </select>
+                <span class="error-msg">Please select zoning land-use.</span>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- STEP 3: Built-up Area & Architectural Specs -->
+          <fieldset class="wizard-step-panel hidden" id="wizard-step-3" aria-labelledby="step-node-3">
+            <legend class="step-panel-title">Step 3: Proposed Building Specifications &amp; FAR Calculation</legend>
+            <p class="step-panel-desc">Architectural dimensions, occupancy classification, and automated rule compliance.</p>
+
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label for="bldg-occupancy">Proposed Occupancy Category <span class="req-star">*</span></label>
+                <select id="bldg-occupancy" class="form-control" required>
+                  <option value="">Select Occupancy...</option>
+                  <option value="Residential (Single Family)">Residential (Single Family)</option>
+                  <option value="Residential (Multi-Family Apartment)">Residential (Multi-Family Apartment)</option>
+                  <option value="Commercial Office / Retail">Commercial Office / Retail</option>
+                  <option value="Mixed Use (Commercial + Residential)">Mixed Use (Commercial + Residential)</option>
+                  <option value="Institutional / Hospital / School">Institutional / Hospital / School</option>
+                  <option value="Industrial Light">Industrial Light</option>
+                </select>
+                <span class="error-msg">Please select an occupancy type.</span>
+              </div>
+              <div class="form-group">
+                <label for="bldg-floors">Proposed Height (Floors) <span class="req-star">*</span></label>
+                <select id="bldg-floors" class="form-control" required>
+                  <option value="">Select Floor Configuration...</option>
+                  <option value="G+1 (Ground + 1 Upper)">G+1 (Ground + 1 Upper)</option>
+                  <option value="G+2 (Ground + 2 Upper)">G+2 (Ground + 2 Upper)</option>
+                  <option value="G+3 (Ground + 3 Upper)">G+3 (Ground + 3 Upper)</option>
+                  <option value="G+4 (Ground + 4 Upper)">G+4 (Ground + 4 Upper)</option>
+                  <option value="B+G+5 (Basement + G + 5)">B+G+5 (Basement + G + 5)</option>
+                  <option value="Multi-Storey High Rise (>15m)">Multi-Storey High Rise (&gt;15m)</option>
+                </select>
+                <span class="error-msg">Please select floor configuration.</span>
+              </div>
+              <div class="form-group">
+                <label for="bldg-height-meters">Total Structure Height (meters) <span class="req-star">*</span></label>
+                <input type="number" id="bldg-height-meters" class="form-control" placeholder="e.g. 14.5" min="3" max="150" step="0.1" required>
+                <span class="error-msg">Enter height between 3m and 150m.</span>
+              </div>
+            </div>
+
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label for="bldg-ground-coverage">Ground Coverage Area (sq.m) <span class="req-star">*</span></label>
+                <input type="number" id="bldg-ground-coverage" class="form-control" placeholder="e.g. 220" min="20" max="50000" step="any" required>
+                <span class="error-msg">Ground coverage cannot exceed plot area.</span>
+              </div>
+              <div class="form-group">
+                <label for="bldg-builtup-area">Total Proposed Built-up Area (sq.m) <span class="req-star">*</span></label>
+                <input type="number" id="bldg-builtup-area" class="form-control" placeholder="e.g. 780" min="20" max="250000" step="any" required>
+                <span class="error-msg">Enter valid total built-up area.</span>
+              </div>
+              <div class="form-group">
+                <label for="bldg-parking-slots">Off-Street Parking ECS Slots <span class="req-star">*</span></label>
+                <input type="number" id="bldg-parking-slots" class="form-control" placeholder="e.g. 8" min="1" max="1000" required>
+                <span class="error-msg">Please specify off-street parking count.</span>
+              </div>
+            </div>
+
+            <!-- Automated Mathematical Calculation Strip -->
+            <div class="calculation-summary-box" aria-live="polite">
+              <div class="calc-row">
+                <span class="calc-label">Calculated Floor Area Ratio (FAR / FSI):</span>
+                <strong class="calc-value" id="calc-far-value">0.00</strong>
+                <span class="calc-status badge-success" id="calc-far-status">Within Permissible Limit (Max 2.25)</span>
+              </div>
+              <div class="calc-row">
+                <span class="calc-label">Ground Coverage Percentage:</span>
+                <strong class="calc-value" id="calc-coverage-value">0.0%</strong>
+                <span class="calc-status badge-success" id="calc-coverage-status">Within Permissible 60%</span>
+              </div>
+              <div class="calc-row">
+                <span class="calc-label">Estimated Municipal Scrutiny Fee:</span>
+                <strong class="calc-value" id="calc-fee-estimate">&#8377; 0.00</strong>
+                <span class="calc-note">(Scrutiny &#8377;45/sqm plot + &#8377;120/sqm builtup)</span>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- STEP 4: Architect & Licensed Professional Details -->
+          <fieldset class="wizard-step-panel hidden" id="wizard-step-4" aria-labelledby="step-node-4">
+            <legend class="step-panel-title">Step 4: Licensed Architect &amp; Structural Engineer Details</legend>
+            <p class="step-panel-desc">Details of the registered technical professionals certifying this submission.</p>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="arch-name">Architect Name <span class="req-star">*</span></label>
+                <input type="text" id="arch-name" class="form-control" value="Rajesh Sharma" required>
+                <span class="error-msg">Architect name is required.</span>
+              </div>
+              <div class="form-group">
+                <label for="arch-reg-no">Council of Architecture (CoA) Reg. No. <span class="req-star">*</span></label>
+                <input type="text" id="arch-reg-no" class="form-control" value="CA/2018/98421" placeholder="e.g. CA/2018/98421" required>
+                <span class="error-msg">Valid CoA Registration number required.</span>
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="eng-name">Structural Engineer Name <span class="req-star">*</span></label>
+                <input type="text" id="eng-name" class="form-control" value="Dr. Arvind V. Kulkarni" required>
+                <span class="error-msg">Structural engineer name is required.</span>
+              </div>
+              <div class="form-group">
+                <label for="eng-lic-no">Municipal Structural License No. <span class="req-star">*</span></label>
+                <input type="text" id="eng-lic-no" class="form-control" value="STR-ENG-2015-0412" required>
+                <span class="error-msg">Valid municipal structural license required.</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="arch-declaration-read">Professional Certification Confirmation</label>
+              <div class="checkbox-control">
+                <input type="checkbox" id="arch-declaration-read" checked required>
+                <label for="arch-declaration-read">I confirm the architectural and structural drawings adhere strictly to the National Building Code (NBC 2016) and Local Development Regulations.</label>
+              </div>
+              <span class="error-msg">Must confirm professional compliance.</span>
+            </div>
+          </fieldset>
+
+          <!-- STEP 5: Document Upload Simulation -->
+          <fieldset class="wizard-step-panel hidden" id="wizard-step-5" aria-labelledby="step-node-5">
+            <legend class="step-panel-title">Step 5: Document &amp; CAD Drawing Uploads</legend>
+            <p class="step-panel-desc">Upload statutory attachments (PDF or DWG up to 25MB each). In this demo, uploads are simulated and stored in browser memory.</p>
+
+            <div class="upload-items-grid">
+              <!-- Upload 1 -->
+              <div class="upload-box" id="upload-box-siteplan">
+                <div class="upload-icon" aria-hidden="true">&#128207;</div>
+                <div class="upload-info">
+                  <strong>Site Plan &amp; Key Location Plan <span class="req-star">*</span></strong>
+                  <span>Scale 1:500 showing abutting road, north arrow, and setbacks</span>
+                </div>
+                <div class="upload-actions">
+                  <input type="file" id="file-siteplan" class="file-input-hidden" accept=".pdf,.dwg,.png" required>
+                  <label for="file-siteplan" class="btn btn-outline btn-small">Choose File</label>
+                  <span class="file-chosen-name" id="name-file-siteplan">Site_Plan_Rev2.pdf (1.8 MB)</span>
+                </div>
+              </div>
+
+              <!-- Upload 2 -->
+              <div class="upload-box" id="upload-box-arch">
+                <div class="upload-icon" aria-hidden="true">&#127963;</div>
+                <div class="upload-info">
+                  <strong>Architectural Floor Plans, Elevations &amp; Sections <span class="req-star">*</span></strong>
+                  <span>All floor plans, sections A-A/B-B, terrace plan, staircase dimensions</span>
+                </div>
+                <div class="upload-actions">
+                  <input type="file" id="file-arch" class="file-input-hidden" accept=".pdf,.dwg" required>
+                  <label for="file-arch" class="btn btn-outline btn-small">Choose File</label>
+                  <span class="file-chosen-name" id="name-file-arch">Architectural_Full_Set.dwg (4.2 MB)</span>
+                </div>
+              </div>
+
+              <!-- Upload 3 -->
+              <div class="upload-box" id="upload-box-deed">
+                <div class="upload-icon" aria-hidden="true">&#128220;</div>
+                <div class="upload-info">
+                  <strong>Ownership Title Deed / Sale Deed / Mutation Record <span class="req-star">*</span></strong>
+                  <span>Registered sale deed with encumbrance certificate of last 13 years</span>
+                </div>
+                <div class="upload-actions">
+                  <input type="file" id="file-deed" class="file-input-hidden" accept=".pdf" required>
+                  <label for="file-deed" class="btn btn-outline btn-small">Choose File</label>
+                  <span class="file-chosen-name" id="name-file-deed">Registered_SaleDeed_Signed.pdf (3.1 MB)</span>
+                </div>
+              </div>
+
+              <!-- Upload 4 -->
+              <div class="upload-box" id="upload-box-structural">
+                <div class="upload-icon" aria-hidden="true">&#128736;</div>
+                <div class="upload-info">
+                  <strong>Structural Stability Certificate &amp; Soil Test Report <span class="req-star">*</span></strong>
+                  <span>Signed by licensed structural engineer with soil bearing capacity report</span>
+                </div>
+                <div class="upload-actions">
+                  <input type="file" id="file-structural" class="file-input-hidden" accept=".pdf" required>
+                  <label for="file-structural" class="btn btn-outline btn-small">Choose File</label>
+                  <span class="file-chosen-name" id="name-file-structural">Structural_Safety_Certificate.pdf (1.2 MB)</span>
+                </div>
+              </div>
+
+              <!-- Upload 5 -->
+              <div class="upload-box" id="upload-box-fire">
+                <div class="upload-icon" aria-hidden="true">&#128293;</div>
+                <div class="upload-info">
+                  <strong>Fire &amp; Life Safety Layout Plan</strong>
+                  <span>Required for buildings above 15m or commercial/mixed-use</span>
+                </div>
+                <div class="upload-actions">
+                  <input type="file" id="file-fire" class="file-input-hidden" accept=".pdf">
+                  <label for="file-fire" class="btn btn-outline btn-small">Choose File</label>
+                  <span class="file-chosen-name" id="name-file-fire">Fire_Life_Safety_Drawings.pdf (2.5 MB)</span>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- STEP 6: Review Summary & Declaration -->
+          <fieldset class="wizard-step-panel hidden" id="wizard-step-6" aria-labelledby="step-node-6">
+            <legend class="step-panel-title">Step 6: Review Application &amp; Legal Declaration</legend>
+            <p class="step-panel-desc">Review your entered information carefully before final submission to municipal scrutiny queues.</p>
+
+            <div class="review-summary-container" id="review-summary-content">
+              <!-- Dynamically populated from Step 1-5 values -->
+            </div>
+
+            <div class="declaration-box">
+              <div class="checkbox-control">
+                <input type="checkbox" id="legal-declaration" required>
+                <label for="legal-declaration">
+                  <strong>Statutory Legal Declaration: <span class="req-star">*</span></strong>
+                  I hereby solemnly affirm that the statements made and particulars submitted in this application and attached architectural drawings are true and correct. I understand that any false representation or deviation from approved plans shall result in revocation of permit under Section 314 of the Municipal Act and render me liable for criminal prosecution.
+                </label>
+              </div>
+              <span class="error-msg">You must accept the statutory legal declaration before submitting.</span>
+            </div>
+          </fieldset>
+
+          <!-- Wizard Action Navigation Footer -->
+          <div class="wizard-footer">
+            <div class="footer-left">
+              <button type="button" class="btn btn-outline" id="btn-wizard-cancel">Cancel</button>
+              <button type="button" class="btn btn-secondary" id="btn-wizard-draft">
+                <span class="btn-icon" aria-hidden="true">&#128190;</span> Save as Draft
+              </button>
+            </div>
+            <div class="footer-right">
+              <button type="button" class="btn btn-secondary hidden" id="btn-wizard-prev">
+                &larr; Previous Step
+              </button>
+              <button type="button" class="btn btn-primary" id="btn-wizard-next">
+                Next Step &rarr;
+              </button>
+              <button type="submit" class="btn btn-primary hidden" id="btn-wizard-submit">
+                <span class="btn-icon" aria-hidden="true">&#10003;</span> Submit Application
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- VIEW 5: APPLICATION DETAILS PAGE                                          -->
+    <!-- ========================================================================= -->
+    <section id="view-application-details" class="portal-view hidden" aria-labelledby="details-heading">
+      <div class="container">
+        <!-- Details Breadcrumb & Action Header -->
+        <div class="details-top-header">
+          <div>
+            <div class="breadcrumb">
+              <a href="#" class="breadcrumb-link" data-view="applicant-dashboard">Citizen Portal</a> &gt; <span id="details-breadcrumb-id">Application Details</span>
+            </div>
+            <div class="title-with-badge">
+              <h1 id="details-heading" class="details-app-id">Application: PN-2026-0041</h1>
+              <span class="status-badge" id="details-status-badge">Under Scrutiny</span>
+            </div>
+            <p class="details-meta-line" id="details-meta-line">
+              Submitted on 12-Feb-2026 &bull; Applicant: Rajesh Singhania &bull; Ward 12 - South Zone
+            </p>
+          </div>
+          <div class="details-actions-group">
+            <!-- Download Approval Letter (Shown ONLY when status is Approved) -->
+            <button type="button" class="btn btn-success hidden" id="btn-download-sanction-letter">
+              <span class="btn-icon" aria-hidden="true">&#128462;</span> Download Approval Sanction Letter
+            </button>
+            <!-- Pay Fees Button (Shown when fees pending) -->
+            <button type="button" class="btn btn-primary hidden" id="btn-pay-fees-online">
+              <span class="btn-icon" aria-hidden="true">&#128179;</span> Pay Municipal Scrutiny Fees
+            </button>
+            <button type="button" class="btn btn-outline" id="btn-back-to-dashboard">
+              &larr; Back to Dashboard
+            </button>
+          </div>
+        </div>
+
+        <!-- 30-Day SLA Countdown Strip -->
+        <div class="details-sla-banner" id="details-sla-banner">
+          <div class="sla-clock-icon" aria-hidden="true">&#9200;</div>
+          <div class="sla-banner-content">
+            <strong id="details-sla-title">Statutory SLA Progress: Day 12 of 30</strong>
+            <div class="sla-progress-track">
+              <div class="sla-progress-fill" id="details-sla-fill" style="width: 40%;"></div>
+            </div>
+            <span class="sla-banner-sub" id="details-sla-sub">18 working days remaining for statutory municipal disposal</span>
+          </div>
+        </div>
+
+        <!-- Deficiency Alert & Resubmission Box (Shown if Deficiency Raised) -->
+        <div class="deficiency-banner hidden" id="deficiency-action-panel">
+          <div class="deficiency-header">
+            <span class="def-alert-icon" aria-hidden="true">&#9888;</span>
+            <div>
+              <h3>Deficiency Objection Raised by Scrutiny Officers</h3>
+              <p>The municipal scrutiny team has raised specific compliance objections. Please review remarks and submit revised documentation below.</p>
+            </div>
+          </div>
+          <div class="deficiency-body">
+            <div class="def-remarks-list" id="details-deficiency-list">
+              <!-- Injected by script.js -->
+            </div>
+            <div class="resubmission-form-box">
+              <h4>Citizen Resubmission Form</h4>
+              <form id="form-resubmit-deficiency" novalidate>
+                <div class="form-group">
+                  <label for="resubmit-remarks">Applicant Explanation / Compliance Statement <span class="req-star">*</span></label>
+                  <textarea id="resubmit-remarks" class="form-control" rows="3" placeholder="Explain the corrections made in compliance with the deficiency remarks..." required minlength="10"></textarea>
+                  <span class="error-msg">Please enter a clear explanation (minimum 10 characters).</span>
+                </div>
+                <div class="form-group">
+                  <label for="resubmit-file">Upload Revised Drawing / Rectified Document (PDF / DWG) <span class="req-star">*</span></label>
+                  <input type="file" id="resubmit-file" class="form-control" accept=".pdf,.dwg" required>
+                  <span class="error-msg">Please attach the revised drawing or document.</span>
+                </div>
+                <button type="submit" class="btn btn-primary" id="btn-submit-resubmission">
+                  <span class="btn-icon" aria-hidden="true">&#10004;</span> Submit Rectification &amp; Resume Scrutiny
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Details Grid Layout: Left Scrutiny & Documents, Right Timeline & Specs -->
+        <div class="details-main-grid">
+          <!-- Left Column -->
+          <div class="details-left-col">
+            <!-- 6-Department Scrutiny Matrix -->
+            <div class="panel-box">
+              <div class="panel-header">
+                <h2 class="panel-title">Departmental Scrutiny Clearances (6 Departments)</h2>
+                <span class="panel-tag" id="details-dept-count-badge">3 of 6 Cleared</span>
+              </div>
+              <div class="scrutiny-matrix" id="details-scrutiny-matrix">
+                <!-- Dynamically generated 6 department cards -->
+              </div>
+            </div>
+
+            <!-- Uploaded Documents Repository -->
+            <div class="panel-box">
+              <div class="panel-header">
+                <h2 class="panel-title">Submitted Documents &amp; Drawings</h2>
+                <span class="panel-tag">Archived in Repository</span>
+              </div>
+              <div class="doc-list" id="details-doc-list">
+                <!-- Injected via script.js -->
+              </div>
+            </div>
+
+            <!-- Site Visit / Inspection Schedule Panel -->
+            <div class="panel-box">
+              <div class="panel-header">
+                <h2 class="panel-title">Site Inspection &amp; Physical Verification</h2>
+                <span class="status-pill status-pill-info" id="details-site-status">Scheduled</span>
+              </div>
+              <div class="site-visit-content" id="details-site-visit-body">
+                <!-- Injected via script.js -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div class="details-right-col">
+            <!-- Building Specifications Summary Card -->
+            <div class="panel-box">
+              <div class="panel-header">
+                <h2 class="panel-title">Project Specifications</h2>
+              </div>
+              <dl class="meta-data-list" id="details-specs-list">
+                <!-- Injected via script.js -->
+              </dl>
+            </div>
+
+            <!-- Fee & Payment Details -->
+            <div class="panel-box">
+              <div class="panel-header">
+                <h2 class="panel-title">Municipal Fee Status</h2>
+                <span class="fee-badge" id="details-fee-status-badge">Fee Paid</span>
+              </div>
+              <div class="fee-details-body" id="details-fee-content">
+                <!-- Injected via script.js -->
+              </div>
+            </div>
+
+            <!-- Application Life-Cycle Audit Timeline -->
+            <div class="panel-box">
+              <div class="panel-header">
+                <h2 class="panel-title">Statutory Audit Timeline</h2>
+              </div>
+              <ol class="audit-timeline" id="details-audit-timeline">
+                <!-- Injected via script.js -->
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- VIEW 6: DEPARTMENT OFFICER DASHBOARD & REVIEW PANEL                       -->
+    <!-- ========================================================================= -->
+    <section id="view-officer-dashboard" class="portal-view hidden" aria-labelledby="officer-dash-heading">
+      <div class="container">
+        <!-- Officer Header -->
+        <div class="dashboard-header">
+          <div>
+            <div class="breadcrumb">
+              <a href="#" class="breadcrumb-link" data-view="landing">Home</a> &gt; <span>Department Scrutiny</span>
+            </div>
+            <h1 id="officer-dash-heading" class="dashboard-title">Department Officer Scrutiny Console</h1>
+            <p class="dashboard-subtitle">Statutory scrutiny queue, byelaw verification, and clearance disposition.</p>
+          </div>
+          <!-- Department Selector Bar -->
+          <div class="officer-dept-switch-box">
+            <label for="officer-active-dept-select">Active Scrutiny Department:</label>
+            <select id="officer-active-dept-select" class="form-control">
+              <option value="town_planning">Town Planning &amp; Zoning</option>
+              <option value="fire_safety">Fire &amp; Life Safety</option>
+              <option value="structural">Structural Engineering</option>
+              <option value="environmental">Environmental &amp; Sanitation</option>
+              <option value="water_sewerage">Water Supply &amp; Drainage</option>
+              <option value="traffic">Traffic &amp; Police Clearance</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Department Scrutiny SLA Metrics -->
+        <div class="stats-row" role="region" aria-label="Department Scrutiny Metrics">
+          <div class="stat-card">
+            <div class="stat-label">Pending In Queue</div>
+            <div class="stat-value" id="officer-stat-pending">0</div>
+            <div class="stat-desc">Awaiting your action</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Avg Turnaround Time</div>
+            <div class="stat-value" id="officer-stat-turnaround">6.4 Days</div>
+            <div class="stat-desc">Within municipal threshold</div>
+          </div>
+          <div class="stat-card stat-deficiency">
+            <div class="stat-label">Deficiencies Active</div>
+            <div class="stat-value" id="officer-stat-deficiencies">0</div>
+            <div class="stat-desc">Awaiting applicant resubmission</div>
+          </div>
+          <div class="stat-card stat-approved">
+            <div class="stat-label">Cleared This Month</div>
+            <div class="stat-value" id="officer-stat-cleared">0</div>
+            <div class="stat-desc">No-Objection granted</div>
+          </div>
+        </div>
+
+        <!-- Assigned Queue Panel -->
+        <div class="panel-box">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <h2 class="panel-title" id="officer-queue-title">Assigned Scrutiny Queue (Town Planning)</h2>
+              <span class="active-filter-badge" id="officer-queue-filter-badge">All Pending</span>
+            </div>
+            <div class="table-controls">
+              <div class="search-input-wrap">
+                <input type="text" id="officer-search-input" class="form-control form-control-sm" placeholder="Search application ID or applicant...">
+              </div>
+              <select id="officer-age-filter" class="form-control form-control-sm" aria-label="Filter by age">
+                <option value="all">All Ages</option>
+                <option value="critical">SLA Critical (&gt;20 days)</option>
+                <option value="mid">10 to 20 days</option>
+                <option value="fresh">Fresh (&lt;10 days)</option>
+              </select>
+              <select id="officer-status-filter" class="form-control form-control-sm" aria-label="Filter by status">
+                <option value="all">All Statuses</option>
+                <option value="Pending">Pending Scrutiny</option>
+                <option value="Approved">Cleared / Approved</option>
+                <option value="Deficiency">Deficiency Raised</option>
+                <option value="Rejected">Rejected</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Queue Table -->
+          <div class="table-responsive">
+            <table class="gov-table" id="officer-queue-table">
+              <thead>
+                <tr>
+                  <th scope="col">Application ID</th>
+                  <th scope="col">Applicant &amp; Project</th>
+                  <th scope="col">Ward &amp; Zone</th>
+                  <th scope="col">30-Day SLA Age</th>
+                  <th scope="col">Dept Scrutiny Status</th>
+                  <th scope="col" class="text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody id="officer-queue-tbody">
+                <!-- Dynamically populated by script.js -->
+              </tbody>
+            </table>
+          </div>
+
+          <div id="officer-empty-state" class="empty-state hidden">
+            <div class="empty-icon" aria-hidden="true">&#10003;</div>
+            <h3>Queue is Empty</h3>
+            <p>No applications match the current department filters.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- VIEW 7: ADMINISTRATOR DASHBOARD                                           -->
+    <!-- ========================================================================= -->
+    <section id="view-admin-dashboard" class="portal-view hidden" aria-labelledby="admin-dash-heading">
+      <div class="container">
+        <!-- Admin Header -->
+        <div class="dashboard-header">
+          <div>
+            <div class="breadcrumb">
+              <a href="#" class="breadcrumb-link" data-view="landing">Home</a> &gt; <span>Municipal Administration</span>
+            </div>
+            <h1 id="admin-dash-heading" class="dashboard-title">Municipal Executive Oversight &amp; SLA Console</h1>
+            <p class="dashboard-subtitle">Real-time performance analytics, 30-day statutory target compliance, and inter-departmental benchmarks.</p>
+          </div>
+          <div class="admin-date-badge">
+            <span>Fiscal Year 2025-26 &bull; Real-time Monitoring</span>
+          </div>
+        </div>
+
+        <!-- 30-Day Target Indicator Hero Widget -->
+        <div class="admin-target-banner">
+          <div class="target-gauge-block">
+            <div class="target-circle-wrap">
+              <svg viewBox="0 0 36 36" class="circular-chart blue">
+                <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                <path class="circle-fill" id="admin-sla-circle-fill" stroke-dasharray="89.4, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                <text x="18" y="20.35" class="circle-percentage" id="admin-sla-text">89.4%</text>
+              </svg>
+            </div>
+            <div class="target-details">
+              <div class="target-headline">
+                <h2>Statutory 30-Day Disposal Rate</h2>
+                <span class="target-benchmark">Mandated Target: <strong>90.0%</strong></span>
+              </div>
+              <p>Percentage of all building plan applications scrutinized and sanctioned or disposed within 30 statutory days. Current variance: <strong>-0.6%</strong> of benchmark.</p>
+              <div class="target-breakdown-chips">
+                <span class="chip chip-success">&#10003; 89.4% Cleared on time</span>
+                <span class="chip chip-warning">&#9888; 10.6% Exceeded 30 days</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Overall KPI Metric Row -->
+        <div class="stats-row" role="region" aria-label="Executive Metrics">
+          <div class="stat-card">
+            <div class="stat-label">Total Applications Received</div>
+            <div class="stat-value" id="admin-stat-total">0</div>
+            <div class="stat-desc">Across all 6 municipal zones</div>
+          </div>
+          <div class="stat-card stat-approved">
+            <div class="stat-label">Total Sanctioned / Approved</div>
+            <div class="stat-value" id="admin-stat-approved">0</div>
+            <div class="stat-desc">Permits issued</div>
+          </div>
+          <div class="stat-card stat-scrutiny">
+            <div class="stat-label">Currently Under Scrutiny</div>
+            <div class="stat-value" id="admin-stat-scrutiny">0</div>
+            <div class="stat-desc">In department queues</div>
+          </div>
+          <div class="stat-card stat-deficiency">
+            <div class="stat-label">Deficiencies Pending Citizen</div>
+            <div class="stat-value" id="admin-stat-deficiencies">0</div>
+            <div class="stat-desc">Clock paused</div>
+          </div>
+          <div class="stat-card stat-rejected">
+            <div class="stat-label">Applications Rejected</div>
+            <div class="stat-value" id="admin-stat-rejected">0</div>
+            <div class="stat-desc">Master plan violations</div>
+          </div>
+        </div>
+
+        <!-- Analytical Charts Row (Vanilla CSS & SVG) -->
+        <div class="admin-charts-grid">
+          <!-- Chart 1: Turnaround Time Comparison -->
+          <div class="panel-box">
+            <div class="panel-header">
+              <h2 class="panel-title">Department Turnaround Time (Average Days)</h2>
+              <span class="panel-tag">Statutory Limit: 7 Days / Dept</span>
+            </div>
+            <div class="chart-container" id="admin-dept-bar-chart">
+              <!-- Dynamically populated SVG Bar Chart -->
+            </div>
+          </div>
+
+          <!-- Chart 2: Status Breakdown Distribution -->
+          <div class="panel-box">
+            <div class="panel-header">
+              <h2 class="panel-title">Application Status Distribution</h2>
+              <span class="panel-tag">Live Proportions</span>
+            </div>
+            <div class="chart-container" id="admin-status-pie-chart">
+              <!-- Dynamically populated Distribution Stack & Legend -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Escalated / High Age Applications Alert Table -->
+        <div class="panel-box">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <h2 class="panel-title">Critical &amp; Pending SLA Escalation Queue (&gt;20 Days)</h2>
+              <span class="badge-warning" id="admin-escalated-count-badge">0 Applications</span>
+            </div>
+            <span class="panel-desc-inline">Applications approaching or exceeding the 30-day statutory threshold</span>
+          </div>
+          <div class="table-responsive">
+            <table class="gov-table" id="admin-escalated-table">
+              <thead>
+                <tr>
+                  <th scope="col">Application ID</th>
+                  <th scope="col">Applicant</th>
+                  <th scope="col">Ward</th>
+                  <th scope="col">Elapsed Days</th>
+                  <th scope="col">Pending Department(s)</th>
+                  <th scope="col">SLA Status</th>
+                  <th scope="col" class="text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody id="admin-escalated-tbody">
+                <!-- Dynamically populated via script.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Municipal Officers & Roles Directory -->
+        <div class="panel-box">
+          <div class="panel-header">
+            <h2 class="panel-title">Department Scrutiny Cell Overview</h2>
+            <span class="panel-tag">6 Statutory Authorities</span>
+          </div>
+          <div class="table-responsive">
+            <table class="gov-table">
+              <thead>
+                <tr>
+                  <th scope="col">Department</th>
+                  <th scope="col">Head Officer</th>
+                  <th scope="col">Designation</th>
+                  <th scope="col">Active Queue</th>
+                  <th scope="col">Avg Clearance</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Town Planning &amp; Zoning</strong></td>
+                  <td>Er. Sudhir Deshmukh</td>
+                  <td>Chief Town Planner (Zonal)</td>
+                  <td id="cell-tp-queue">--</td>
+                  <td>5.8 Days</td>
+                  <td><span class="status-pill status-pill-success">Operational</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Fire &amp; Life Safety</strong></td>
+                  <td>CFO Meenakshi Iyer</td>
+                  <td>Chief Fire Officer</td>
+                  <td id="cell-fire-queue">--</td>
+                  <td>7.2 Days</td>
+                  <td><span class="status-pill status-pill-success">Operational</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Structural Safety Cell</strong></td>
+                  <td>Er. Harish Chandra</td>
+                  <td>Superintending Engineer</td>
+                  <td id="cell-str-queue">--</td>
+                  <td>4.5 Days</td>
+                  <td><span class="status-pill status-pill-success">Operational</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Environmental &amp; Sanitation</strong></td>
+                  <td>Dr. Kavita Nambiar</td>
+                  <td>Executive Health Officer</td>
+                  <td id="cell-env-queue">--</td>
+                  <td>6.1 Days</td>
+                  <td><span class="status-pill status-pill-success">Operational</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Water Supply &amp; Sewerage</strong></td>
+                  <td>Er. A. K. Banerjee</td>
+                  <td>Executive Engineer (Water)</td>
+                  <td id="cell-water-queue">--</td>
+                  <td>3.9 Days</td>
+                  <td><span class="status-pill status-pill-success">Operational</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Traffic &amp; Police Clearance</strong></td>
+                  <td>ACP Pradeep Rane</td>
+                  <td>Assistant Commissioner (Traffic)</td>
+                  <td id="cell-traffic-queue">--</td>
+                  <td>5.1 Days</td>
+                  <td><span class="status-pill status-pill-success">Operational</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- MODALS & DIALOGS                                                          -->
+  <!-- ========================================================================= -->
+
+  <!-- Modal 1: Officer Scrutiny Review Panel Modal -->
+  <div class="modal-backdrop hidden" id="modal-officer-review" role="dialog" aria-modal="true" aria-labelledby="modal-review-title">
+    <div class="modal-dialog modal-dialog-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <span class="modal-pretitle" id="modal-review-dept-label">Town Planning Scrutiny</span>
+            <h2 id="modal-review-title">Scrutiny Review &bull; <span id="modal-review-app-id">PN-2026-0089</span></h2>
+          </div>
+          <button type="button" class="btn-modal-close" id="btn-close-review-modal" aria-label="Close dialog">&times;</button>
+        </div>
+        <div class="modal-body">
+          <!-- Summary of application for reviewer -->
+          <div class="review-brief-box" id="modal-review-summary">
+            <!-- Injected by script.js -->
+          </div>
+
+          <!-- Document preview links -->
+          <div class="review-docs-box">
+            <h4>Uploaded Drawings for Inspection</h4>
+            <div class="doc-pill-list" id="modal-review-doc-pills">
+              <!-- Injected by script.js -->
+            </div>
+          </div>
+
+          <!-- Decision Form -->
+          <form id="form-officer-decision" novalidate>
+            <div class="form-group">
+              <label>Statutory Clearance Action <span class="req-star">*</span></label>
+              <div class="radio-cards-group">
+                <label class="radio-card radio-card-approve">
+                  <input type="radio" name="officer_decision_action" value="Approved" required>
+                  <div class="radio-card-content">
+                    <strong>Grant Clearance (Approved)</strong>
+                    <span>No byelaw objection; satisfies all departmental codes</span>
+                  </div>
+                </label>
+                <label class="radio-card radio-card-deficiency">
+                  <input type="radio" name="officer_decision_action" value="Deficiency" required>
+                  <div class="radio-card-content">
+                    <strong>Raise Deficiency (Send Back)</strong>
+                    <span>Specific corrections / missing drawings required from applicant</span>
+                  </div>
+                </label>
+                <label class="radio-card radio-card-reject">
+                  <input type="radio" name="officer_decision_action" value="Rejected" required>
+                  <div class="radio-card-content">
+                    <strong>Reject Application</strong>
+                    <span>Fundamental violation of Master Plan / Statutory zoning</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="officer-decision-remarks">Officer Statutory Remarks &amp; Byelaw Citations <span class="req-star">*</span></label>
+              <textarea id="officer-decision-remarks" class="form-control" rows="4" placeholder="Enter detailed inspection observations, rule clauses, or required revisions..." required minlength="8"></textarea>
+              <span class="error-msg">Please record official remarks (minimum 8 characters).</span>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline" id="btn-cancel-review">Cancel</button>
+              <button type="submit" class="btn btn-primary" id="btn-save-officer-decision">
+                Record Official Decision
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Fee Payment Simulation Modal -->
+  <div class="modal-backdrop hidden" id="modal-fee-payment" role="dialog" aria-modal="true" aria-labelledby="modal-payment-title">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="modal-payment-title">Municipal Treasury Fee Payment</h2>
+          <button type="button" class="btn-modal-close" id="btn-close-payment-modal" aria-label="Close dialog">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="payment-summary-box">
+            <div class="pay-row">
+              <span>Application ID:</span>
+              <strong id="pay-modal-app-id">PN-2026-0118</strong>
+            </div>
+            <div class="pay-row">
+              <span>Scrutiny &amp; Verification Fee:</span>
+              <strong id="pay-modal-scrutiny-fee">&#8377; 18,500.00</strong>
+            </div>
+            <div class="pay-row">
+              <span>Municipal Infrastructure Cess:</span>
+              <strong id="pay-modal-cess-fee">&#8377; 42,000.00</strong>
+            </div>
+            <div class="pay-row">
+              <span>Betterment &amp; Solid Waste Levy:</span>
+              <strong id="pay-modal-betterment-fee">&#8377; 8,500.00</strong>
+            </div>
+            <hr class="pay-divider">
+            <div class="pay-row pay-total-row">
+              <span>Total Payable Amount:</span>
+              <strong class="total-amt" id="pay-modal-total">&#8377; 69,000.00</strong>
+            </div>
+          </div>
+
+          <form id="form-simulate-payment" novalidate>
+            <div class="form-group">
+              <label for="payment-channel">Select Municipal Payment Mode</label>
+              <select id="payment-channel" class="form-control" required>
+                <option value="Treasury Challan">Government Treasury Cyber-Challan (GRAS)</option>
+                <option value="UPI / QR">UPI / QR Code (BHIM / Government Gateway)</option>
+                <option value="Netbanking">Municipal Corporate Netbanking</option>
+                <option value="Debit/Credit Card">Debit / Credit Card</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="payment-reference">Simulated Transaction / Challan Reference</label>
+              <input type="text" id="payment-reference" class="form-control" value="CHL-2026-9814421" required>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline" id="btn-cancel-payment">Cancel</button>
+              <button type="submit" class="btn btn-primary" id="btn-confirm-payment">
+                <span class="btn-icon" aria-hidden="true">&#128179;</span> Confirm &amp; Generate Municipal Receipt
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: Sanction Order / Approval Letter Printable Modal -->
+  <div class="modal-backdrop hidden" id="modal-sanction-letter" role="dialog" aria-modal="true" aria-labelledby="modal-sanction-title">
+    <div class="modal-dialog modal-dialog-lg modal-sanction-wrap">
+      <div class="modal-content">
+        <div class="modal-header modal-header-print-hide">
+          <h2>Official Municipal Sanction Order</h2>
+          <div class="modal-header-actions">
+            <button type="button" class="btn btn-primary btn-small" id="btn-print-sanction">
+              <span class="btn-icon" aria-hidden="true">&#128438;</span> Print / Save PDF
+            </button>
+            <button type="button" class="btn-modal-close" id="btn-close-sanction-modal" aria-label="Close dialog">&times;</button>
+          </div>
+        </div>
+        <div class="modal-body sanction-document-page" id="sanction-letter-print-area">
+          <!-- Official Municipal Sanction Letter Certificate Format -->
+          <div class="sanction-doc-container">
+            <!-- Letter Header -->
+            <div class="sanction-head">
+              <div class="sanction-seal">
+                <svg width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="50" cy="50" r="46" stroke="#0c2340" stroke-width="4" fill="#f8fafc"/>
+                  <circle cx="50" cy="50" r="38" stroke="#0c2340" stroke-width="2" stroke-dasharray="3 3"/>
+                  <path d="M50 20 L75 36 L75 75 L25 75 L25 36 Z" stroke="#0c2340" stroke-width="3" fill="#e2e8f0"/>
+                  <text x="50" y="88" font-size="9" font-family="Inter, sans-serif" text-anchor="middle" font-weight="bold" fill="#0c2340">OFFICIAL SANCTION</text>
+                </svg>
+              </div>
+              <div class="sanction-titles">
+                <h3>MUNICIPAL CORPORATION &bull; TOWN PLANNING AUTHORITY</h3>
+                <h4>OFFICE OF THE CHIEF TOWN PLANNER</h4>
+                <p>Civic Centre, Central Administrative Complex &bull; Form B-4 (Rule 18)</p>
+              </div>
+            </div>
+
+            <div class="sanction-divider"></div>
+
+            <div class="sanction-meta-row">
+              <div><strong>Sanction Permit No:</strong> <span id="sanction-permit-no">MNC/BP/2026/0412</span></div>
+              <div><strong>Issue Date:</strong> <span id="sanction-issue-date">24-Feb-2026</span></div>
+              <div><strong>Permit Validity:</strong> 3 Years (Valid till 23-Feb-2029)</div>
+            </div>
+
+            <div class="sanction-subject">
+              <strong>SUBJECT:</strong> GRANT OF STATUTORY BUILDING PERMISSION FOR PROPOSED CONSTRUCTION UNDER SECTION 301 OF THE MUNICIPAL CORPORATION ACT.
+            </div>
+
+            <div class="sanction-body-text">
+              <p>
+                Sanction is hereby accorded to <strong><span id="sanction-applicant-name">Applicant</span></strong> for the proposed construction on <strong><span id="sanction-plot-details">Plot No.</span></strong> situated in <strong><span id="sanction-ward-name">Ward</span></strong>, subject to strict adherence to the sanctioned drawings and the conditions enumerated hereunder:
+              </p>
+
+              <table class="sanction-specs-table">
+                <tbody>
+                  <tr>
+                    <td><strong>Sanctioned Built-Up Area:</strong></td>
+                    <td id="sanction-builtup">780.00 sq. meters</td>
+                    <td><strong>Permissible FAR:</strong></td>
+                    <td id="sanction-far">1.73</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Permissible Floors:</strong></td>
+                    <td id="sanction-floors">G+4 Upper Floors</td>
+                    <td><strong>Max Permissible Height:</strong></td>
+                    <td id="sanction-height">14.50 meters</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Occupancy Category:</strong></td>
+                    <td id="sanction-occupancy">Commercial</td>
+                    <td><strong>Required Parking:</strong></td>
+                    <td id="sanction-parking">8 ECS</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="sanction-conditions">
+                <strong>Statutory Conditions of Approval:</strong>
+                <ol>
+                  <li>The building shall be constructed in strict accordance with the approved architectural and structural plans.</li>
+                  <li>Notice of commencement of work shall be given to the Town Planning Authority in Form C within 30 days.</li>
+                  <li>A certified Council of Architecture architect and licensed structural engineer must supervise execution.</li>
+                  <li>No occupancy or connection of municipal water/sewerage shall be provided without an official Completion &amp; Occupancy Certificate (OC).</li>
+                  <li>Rainwater harvesting systems and fire safety equipment must be installed and tested before occupancy.</li>
+                </ol>
+              </div>
+
+              <!-- Signatures & QR Code -->
+              <div class="sanction-signatures">
+                <div class="sanction-qr-block">
+                  <div class="qr-mock" aria-label="Verification QR Code">
+                    <svg width="80" height="80" viewBox="0 0 100 100" fill="#0c2340">
+                      <rect width="100" height="100" fill="#ffffff"/>
+                      <rect x="10" y="10" width="25" height="25" fill="#0c2340"/>
+                      <rect x="15" y="15" width="15" height="15" fill="#ffffff"/>
+                      <rect x="65" y="10" width="25" height="25" fill="#0c2340"/>
+                      <rect x="70" y="15" width="15" height="15" fill="#ffffff"/>
+                      <rect x="10" y="65" width="25" height="25" fill="#0c2340"/>
+                      <rect x="15" y="70" width="15" height="15" fill="#ffffff"/>
+                      <rect x="42" y="42" width="16" height="16" fill="#0c2340"/>
+                      <rect x="45" y="15" width="10" height="10" fill="#0c2340"/>
+                      <rect x="15" y="45" width="10" height="10" fill="#0c2340"/>
+                      <rect x="70" y="50" width="15" height="8" fill="#0c2340"/>
+                      <rect x="45" y="70" width="15" height="15" fill="#0c2340"/>
+                    </svg>
+                  </div>
+                  <span class="qr-label">Scan to verify authenticity on municipal registry</span>
+                </div>
+                <div class="sanction-official-stamp">
+                  <div class="stamp-seal">DIGITALLY SIGNED &amp; SEALED</div>
+                  <div class="stamp-name">Er. Sudhir Deshmukh</div>
+                  <div class="stamp-title">Chief Town Planner &amp; Member Secretary</div>
+                  <div class="stamp-corp">Municipal Building Plan Committee</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 4: Document Preview Modal -->
+  <div class="modal-backdrop hidden" id="modal-doc-preview" role="dialog" aria-modal="true" aria-labelledby="modal-doc-title">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="modal-doc-title">Document Inspection Viewer</h2>
+          <button type="button" class="btn-modal-close" id="btn-close-doc-modal" aria-label="Close dialog">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="doc-preview-canvas" id="doc-preview-canvas">
+            <!-- Simulated document viewer rendered by script.js -->
+          </div>
+          <div class="doc-preview-meta" id="doc-preview-meta">
+            <!-- Injected by script.js -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Footer -->
+  <footer class="gov-footer" role="contentinfo">
+    <div class="container footer-content">
+      <div class="footer-col">
+        <div class="footer-brand">PermitNow Municipal System</div>
+        <p>An official single-window municipal e-governance platform for transparent building plan sanction, statutory scrutiny, and citizen convenience.</p>
+        <p class="footer-subtext">&copy; 2026 Municipal Urban Development Department. All rights reserved.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-heading">Statutory References</div>
+        <ul class="footer-links">
+          <li><a href="#help-section">Municipal Building Byelaws 2024</a></li>
+          <li><a href="#help-section">National Building Code (NBC 2016)</a></li>
+          <li><a href="#help-section">Right to Public Services Act (30-Day SLA)</a></li>
+          <li><a href="#help-section">Master Plan 2035 Land-Use Regulations</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-heading">Municipal Support</div>
+        <p><strong>Citizen Helpdesk:</strong> 1800-233-5678</p>
+        <p><strong>Working Hours:</strong> Mon - Sat: 9:00 AM - 6:00 PM</p>
+        <p><strong>Town Planning Cell:</strong> Room 204, Civic Centre</p>
+        <div class="footer-demo-notice">
+          <strong>Demo Notice:</strong> Client-side simulation running on localStorage. No real financial or legal transactions.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
